@@ -13,9 +13,25 @@ Requirements:
 3. Удали последнюю строку и вставь её в начало. Повторить 13 раз.
 4. Программа должна выводить список на экран, каждое значение с новой строки.*/
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Solution {
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        Scanner sc = new Scanner(System.in);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(sc.nextLine());
+        }
+
+        for (int i = 0; i < 13; i++) {
+            list.add(0, list.remove(list.size()-1));
+        }
+
+        for (String s : list) {
+            System.out.println(s);
+        }
     }
 }
 
