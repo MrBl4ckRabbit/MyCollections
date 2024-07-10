@@ -21,6 +21,7 @@ Requirements:
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -28,16 +29,24 @@ public class Solution {
     public static void main(String[] args) throws ParseException {
         System.out.println(isDateOdd("MAY 1 2013"));
         System.out.println(isDateOdd("JANUARY 1 2000"));
-        System.out.println(isDateOdd("JANUARY 3 2020"));
+        System.out.println(isDateOdd("JANUARY 2 2020"));
     }
 
     public static boolean isDateOdd(String date) throws ParseException {
         SimpleDateFormat formater = new SimpleDateFormat("MMM d yyyy", Locale.US);
         Date first = formater.parse(date);
-        Date second = new Date();
-        long distance = second.getTime() - first.getTime();
-        int pri = 24 * 60 * 60 * 1000;
-        int dateCount = (int) (distance / pri);
+        Date second = new Date(first.getTime());
+
+        second.setHours(0);
+        second.setMinutes(0);
+        second.setSeconds(0);
+
+        second.setDate(1);
+        second.setMonth(Calendar.JANUARY);
+
+        long difference = second.getTime() - first.getTime();
+        int msPerDay = 24 * 60 * 60 * 1000;
+        int dateCount = (int) (difference / msPerDay);
 
         if (dateCount % 2 == 0) {
             return true;
